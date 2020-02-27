@@ -1,4 +1,4 @@
-package com.example.otn;
+package com.example.navi_mapbox;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.otn", appContext.getPackageName());
+        assertEquals("com.example.navi_mapbox", appContext.getPackageName());
     }
 }

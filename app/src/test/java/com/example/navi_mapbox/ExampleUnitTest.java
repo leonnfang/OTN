@@ -1,4 +1,4 @@
-package com.example.otn;
+package com.example.navi_mapbox;
 
 import org.junit.Test;
 

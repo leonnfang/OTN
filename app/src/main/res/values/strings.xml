@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">OTN</string>
+    <string name="app_name">NAVI_MAPBOX</string>
+    <string name="access_token">pk.eyJ1IjoiaXJpczk5OCIsImEiOiJjazRvcThwaGkzZzhoM25tdzB3MWlrMmVmIn0.vBbjwhxZCT0A4Rvh8GsRXg</string>
 </resources>
