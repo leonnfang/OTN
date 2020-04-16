@@ -9,7 +9,7 @@ public class BikeViewModel extends ViewModel {
 
     public BikeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is bike QR scan fragment");
+        mText.setValue("Please the bike QR code to start riding");
     }
 
     public LiveData<String> getText() {

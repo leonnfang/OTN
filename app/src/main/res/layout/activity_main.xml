@@ -22,13 +22,5 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 
-<!--    <com.mapbox.mapboxsdk.maps.MapView-->
-<!--        android:id="@+id/mapView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:mapbox_cameraTargetLat = "37.7749"-->
-<!--        app:mapbox_cameraTargetLng = "-122.419"-->
-<!--        app:mapbox_cameraZoom="12"-->
-<!--        />-->
 
 </androidx.drawerlayout.widget.DrawerLayout>
