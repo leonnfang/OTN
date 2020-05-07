@@ -72,11 +72,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        //setContentView(R.layout.activity_maps);
+        setContentView(R.layout.content_main);
         String apiKey = getString(R.string.google_maps_key);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.nav_host_fragment);
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         mapFragment.getMapAsync(this);
         getLocationPermission();
@@ -89,7 +90,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private void init() {
         Log.d(TAG, "init: initializing");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -118,7 +119,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private void initMap(){
         Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
         mapFragment.getMapAsync(MapActivity.this);
     }
