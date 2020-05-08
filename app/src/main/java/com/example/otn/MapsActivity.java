@@ -51,7 +51,9 @@ import java.io.IOException;
 import java.lang.String;
 import java.util.ArrayList;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
+
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -63,7 +65,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
     private static final float DEFAULT_ZOOM = 15f;
     private static final int PLACE_PICKER_REQUEST = 1;
     private ArrayList<LatLng> mLocations;
-    private List<Polyline> polylines;
     protected GoogleApiClient mGoogleApiClient;
     private static final int[] COLORS = new int[]{R.color.colorPrimaryDark,R.color.colorPrimary,R.color.common_google_signin_btn_text_light_pressed,R.color.colorAccent,R.color.primary_dark_material_light};
 
@@ -72,25 +73,22 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_maps);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_maps);
         String apiKey = getString(R.string.google_maps_key);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.nav_host_fragment);
+                .findFragmentById(R.id.map);
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         mapFragment.getMapAsync(this);
         getLocationPermission();
 
-
         mSearchText = findViewById(R.id.input_search);
         this.mLocations = new ArrayList<>();
-        this.polylines = new ArrayList<>();
     }
 
     private void init() {
         Log.d(TAG, "init: initializing");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -119,9 +117,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
 
     private void initMap(){
         Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
-        mapFragment.getMapAsync(MapActivity.this);
+        mapFragment.getMapAsync(MapsActivity.this);
     }
 
 
@@ -228,7 +226,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
                             mLocations.add(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()));
                         }else{
                             Log.d(TAG, "getCurrentLocationComplete: current location is null");
-                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -262,7 +260,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
-                            Toast.makeText(MapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -292,7 +290,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
 
         String searchString = mSearchText.getText().toString();
 
-        Geocoder geocoder = new Geocoder(MapActivity.this);
+        Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address> list = new ArrayList<>();
         try{
             list = geocoder.getFromLocationName(searchString, 1);
@@ -306,7 +304,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
 
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getAddressLine(0));
-           // getRouteToMarker(mLocations.get(0),new LatLng(address.getLatitude(), address.getLongitude()));
         }
 
     }
@@ -315,5 +312,5 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback{
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-
 }
+

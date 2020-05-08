@@ -39,8 +39,8 @@ public class qr_scanner extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.fragment_bike);
-        surfaceView = (SurfaceView)findViewById(R.id.qrCode);
-        textView = (TextView)findViewById(R.id.text_bike);
+        surfaceView = findViewById(R.id.qrCode);
+        textView = findViewById(R.id.text_bike);
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
