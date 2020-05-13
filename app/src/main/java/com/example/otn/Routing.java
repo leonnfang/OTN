@@ -46,7 +46,6 @@ public class Routing extends Application {
                         ArrayList<LatLng> start_location = new ArrayList<>();
                         ArrayList<LatLng> end_location = new ArrayList<>();
                         parseResult(response, start_location, end_location);
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
