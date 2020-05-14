@@ -12,11 +12,11 @@
         tools:layout="@layout/fragment_home" />
 
 
-    <fragment
-        android:id="@+id/nav_bike"
-        android:name="com.example.otn.ui.bike_qr.BikeFragment"
-        android:label="@string/menu_bike"
-        tools:layout="@layout/fragment_bike" />
+<!--    <fragment-->
+<!--        android:id="@+id/nav_bike"-->
+<!--        android:name="com.example.otn.ui.bike_qr.BikeFragment"-->
+<!--        android:label="@string/menu_bike"-->
+<!--        tools:layout="@layout/fragment_bike" />-->
 
     <fragment
         android:id="@+id/nav_tools"
@@ -39,4 +39,9 @@
         android:id="@+id/nav_map"
         android:name="com.example.otn.MapsActivity"
         android:label="@string/menu_map" />
+    <activity
+        android:id="@+id/nav_bike"
+        android:name="com.example.otn.qr_MainActivity"
+        android:label="@string/menu_bike"
+        />
 </navigation>
