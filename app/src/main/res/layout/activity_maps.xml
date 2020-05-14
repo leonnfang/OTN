@@ -72,4 +72,13 @@
         android:layout_marginBottom="29dp"
         android:text="Get Direction" />
 
+    <Button
+        android:id="@+id/ar_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:text="Start AR" />
+
 </RelativeLayout>

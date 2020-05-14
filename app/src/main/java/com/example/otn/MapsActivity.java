@@ -3,6 +3,7 @@ package com.example.otn;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.core.content.ContextCompat;
@@ -21,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 
+import com.example.otn.ui.ar.LocationActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -136,6 +138,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(getApplicationContext(), "Please enter destination", Toast.LENGTH_LONG)
                             .show();
                 }
+            }
+        });
+
+        // AR Button
+        Button arbtn = findViewById(R.id.ar_button);
+        arbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MapsActivity.this, LocationActivity.class);
+                intent.putParcelableArrayListExtra("key",  end_location);
+                startActivity(intent);
             }
         });
     }
@@ -326,6 +340,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void startNavigation() {
         getDeviceLocation();
         Routing route = new Routing();
-        route.getRoute(this.currentLocation, this.destination, apiKey);
+        end_location = route.getRoute(this.currentLocation, this.destination, apiKey);
     }
 }

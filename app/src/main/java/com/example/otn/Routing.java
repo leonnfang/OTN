@@ -1,25 +1,41 @@
 package com.example.otn;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.otn.MySingleton;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
 
 public class Routing extends Application {
 
     private static final String baseURL = "https://maps.googleapis.com/maps/api/directions/json?";
     private static final String TAG = "Routing";
     private static Routing mInstance;
+
+    public ArrayList<LatLng> start_location = new ArrayList<>();
+    public ArrayList<LatLng> end_location = new ArrayList<>();
 
 
     @Override
@@ -29,7 +45,7 @@ public class Routing extends Application {
     }
 
 
-    public void getRoute(LatLng orig, LatLng dest, String apiKey)
+    public ArrayList<LatLng> getRoute(LatLng orig, LatLng dest, String apiKey)
     {
         String origin = orig.latitude + ","+orig.longitude;
         String destination = dest.latitude + ","+dest.longitude;
@@ -43,9 +59,8 @@ public class Routing extends Application {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, "getRoute Request response:" + response.toString());
-                        ArrayList<LatLng> start_location = new ArrayList<>();
-                        ArrayList<LatLng> end_location = new ArrayList<>();
                         parseResult(response, start_location, end_location);
+                        System.out.println(Arrays.toString(end_location.toArray()));
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -55,6 +70,7 @@ public class Routing extends Application {
                 });
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(mInstance).addToRequestQueue(jsonObjectRequest);
+        return end_location;
     }
 
 
@@ -73,11 +89,13 @@ public class Routing extends Application {
                 }
                 JSONObject route = routes.getJSONObject(0);
                 JSONArray Legs = route.getJSONArray("legs");
-                for (int i  = 0; i < Legs.length(); i++)
+
+                JSONArray Steps = Legs.getJSONObject(0).getJSONArray("steps");
+                for (int i  = 0; i < Steps.length(); i++)
                 {
-                    JSONObject leg = Legs.getJSONObject(i);
-                    JSONObject orig = leg.getJSONObject("start_location");
-                    JSONObject dest = leg.getJSONObject("end_location");
+                    JSONObject step = Steps.getJSONObject(i);
+                    JSONObject orig = step.getJSONObject("start_location");
+                    JSONObject dest = step.getJSONObject("end_location");
                     LatLng start = new LatLng(Double.parseDouble(orig.get("lat").toString()),
                             Double.parseDouble(orig.get("lng").toString()));
                     LatLng end = new LatLng(Double.parseDouble(dest.get("lat").toString()),
